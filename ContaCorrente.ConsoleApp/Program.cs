@@ -42,10 +42,21 @@ while (true)
     }
     else if (opcaoMenu == "2")
     {
+        Console.WriteLine("Digite o valor do Deposito: R$");
+        decimal valorDeposito = Convert.ToDecimal(Console.ReadLine());
+
+        saldo += valorDeposito;
+
+        Console.WriteLine($"O Deposito de R$ {valorDeposito} foi efetuado com sucesso! ");
+        Console.ReadLine();
+
 
     }
     else if (opcaoMenu == "3")
     {
+        
+        Console.WriteLine($"O saldo da conta é: R$ {saldo}");
+        Console.ReadLine();
 
     }
 }

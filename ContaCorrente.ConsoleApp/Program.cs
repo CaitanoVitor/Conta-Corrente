@@ -1,7 +1,18 @@
 ﻿
-int id = 1;
-decimal saldo = 2200;
-decimal limiteDebito = 1000;
+using ContaCorrente.ConsoleApp.Entidades;
+
+
+Conta contaVitor = new Conta();
+contaVitor.id = 1;
+contaVitor.titular = "Vitor";
+contaVitor.saldo = 5000;
+contaVitor.limiteDebito = 800;
+
+Conta contaThiago = new Conta();
+contaThiago.id = 2;
+contaThiago.titular = "Thiago";
+contaThiago.saldo = 3100;
+contaThiago.limiteDebito = 800;
 
 while (true)
 {
@@ -11,7 +22,8 @@ while (true)
     Console.WriteLine("---------------------------------------------");
     Console.WriteLine("1 - Saque");
     Console.WriteLine("2 - Depósito");
-    Console.WriteLine("3 - Consulta de Saldo");
+    Console.WriteLine("3 - Transferencia");
+    Console.WriteLine("4 - Consulta de Saldo");
     Console.WriteLine("S - Sair");
     Console.WriteLine("---------------------------------------------");
     Console.Write("> ");
@@ -25,38 +37,28 @@ while (true)
         Console.WriteLine("Digite o valor do Saque: R$");
         decimal valorSaque = Convert.ToDecimal(Console.ReadLine());
 
-        decimal limiteSaque = saldo + limiteDebito;
-
-        if (valorSaque > limiteSaque)
-        {
-            Console.WriteLine("Não é possivel Fazer o saque, SALDO insuficiente! ");
-            Console.ReadLine();
-            continue;
-        }
-
-        saldo -= valorSaque;
-
-        Console.WriteLine($"O saque da R$ {valorSaque} foi efetuada com sucesso! ");
-        Console.ReadLine();
-
+        contaVitor.Sacar(valorSaque);
     }
     else if (opcaoMenu == "2")
     {
         Console.WriteLine("Digite o valor do Deposito: R$");
         decimal valorDeposito = Convert.ToDecimal(Console.ReadLine());
 
-        saldo += valorDeposito;
 
-        Console.WriteLine($"O Deposito de R$ {valorDeposito} foi efetuado com sucesso! ");
-        Console.ReadLine();
-
+        contaVitor.Depositar(valorDeposito);
 
     }
     else if (opcaoMenu == "3")
     {
-        
-        Console.WriteLine($"O saldo da conta é: R$ {saldo}");
-        Console.ReadLine();
+        Console.WriteLine("Digite o valor para transferir: R$");
+        decimal valorTransferencia = Convert.ToDecimal(Console.ReadLine());
+
+        contaVitor.Transferir(valorTransferencia, contaThiago);
+    }
+    else if (opcaoMenu == "4")
+    {
+
+        contaVitor.VisualizarSaldo();
 
     }
 }

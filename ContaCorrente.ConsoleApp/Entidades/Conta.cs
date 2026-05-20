@@ -2,17 +2,18 @@ using System;
 
 namespace ContaCorrente.ConsoleApp.Entidades;
 
-public static class Conta
+public class Conta
 {
 
 
-public static int id = 1;
-public static decimal saldo = 2200;
-public static decimal limiteDebito = 1000;
+    public int id;
+    public string titular;
+    public decimal saldo;
+    public decimal limiteDebito;
 
-public static void Sacar(decimal valorSaque)
+    public void Sacar(decimal valorSaque)
     {
-            decimal limiteSaque = saldo + limiteDebito;
+        decimal limiteSaque = saldo + limiteDebito;
 
         if (valorSaque > limiteSaque)
         {
@@ -28,17 +29,35 @@ public static void Sacar(decimal valorSaque)
 
     }
 
-    public static void Depositar(decimal valorDeposito)
+    public void Depositar(decimal valorDeposito)
     {
-         saldo += valorDeposito;
+        saldo += valorDeposito;
 
         Console.WriteLine($"O Deposito de R$ {valorDeposito} foi efetuado com sucesso! ");
         Console.ReadLine();
     }
-  public static void VisualizarSaldo()
+
+    public void Transferir(decimal valorTransferencia, Conta contaDestino)
     {
-        
-        Console.WriteLine($"O saldo da conta é: R$ {saldo}");
+
+        decimal limiteSaque = saldo + limiteDebito;
+
+        if (valorTransferencia > limiteSaque)
+        {
+            Console.WriteLine("Não é possivel Fazer o Transferencia, SALDO insuficiente! ");
+            Console.ReadLine();
+            return;
+        }
+
+        this.Sacar(valorTransferencia);
+        contaDestino.Depositar(valorTransferencia);
+
+    }
+
+    public void VisualizarSaldo()
+    {
+
+        Console.WriteLine($"O saldo da conta do {titular} é: R$ {saldo}");
         Console.ReadLine();
     }
 
